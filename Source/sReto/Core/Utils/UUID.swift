@@ -55,6 +55,11 @@ public struct UUID: Comparable, Hashable, CustomStringConvertible {
         )
     }
     
+    static public func getFoundationUUID () -> Foundation.UUID
+    {
+        return Foundation.UUID()
+    }
+    
     /** Returns the string representation of this UUID */
     public var UUIDString: String {
         return Foundation.UUID(uuid: self).uuidString

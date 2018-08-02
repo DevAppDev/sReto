@@ -224,15 +224,20 @@ class TransferManager: PacketHandler {
     
     /** Handles a data packet. */
     fileprivate func handleData(_ packet: DataPacket) {
-        assert(self.currentInTransfer != nil, "Received data, but there is no incoming transfer")
-        
-        if let transfer = self.currentInTransfer {
-            transfer.updateWithReceivedData(packet.data)
-            transfer.confirmProgress()
-            if transfer.isAllDataTransmitted {
-                self.currentInTransfer = nil
-                transfer.confirmCompletion()
+        //assert(self.currentInTransfer != nil, "Received data, but there is no incoming transfer")
+        if self.currentInTransfer != nil {
+            if let transfer = self.currentInTransfer {
+                transfer.updateWithReceivedData(packet.data)
+                transfer.confirmProgress()
+                if transfer.isAllDataTransmitted {
+                    self.currentInTransfer = nil
+                    transfer.confirmCompletion()
+                }
             }
+        }
+        else
+        {
+//            AppLogSwift("Received data, but there is no incoming transfer");
         }
     }
 }

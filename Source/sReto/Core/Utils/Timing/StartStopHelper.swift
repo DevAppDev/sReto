@@ -39,10 +39,10 @@ class RetryableActionExecutor {
     /** The dispatch queue that the action is executed on. */
     let dispatchQueue: DispatchQueue
     /** The timer settings used to create the timer that triggers a retry. */
-    let timerSettings: Timer.BackoffTimerSettings
+    let timerSettings: SRetoTimer.BackoffTimerSettings
     
     /** The timer used by the RetryableActionExecutor. */
-    var timer: Timer?
+    var timer: SRetoTimer?
     
     /**
     * Constructs a new RetryableActionExecutor.
@@ -51,7 +51,7 @@ class RetryableActionExecutor {
     * @param timerSettings: Specifies the delay in which the action should be executed.
     * @param dispatchQueue: The dispatch queue on which actions should be executed.
     */
-    init(action: @escaping RetryableAction, timerSettings: Timer.BackoffTimerSettings, dispatchQueue: DispatchQueue) {
+    init(action: @escaping RetryableAction, timerSettings: SRetoTimer.BackoffTimerSettings, dispatchQueue: DispatchQueue) {
         self.action = action
         self.timerSettings = timerSettings
         self.dispatchQueue = dispatchQueue
@@ -63,7 +63,7 @@ class RetryableActionExecutor {
     func start() {
         if self.timer != nil { return }
 
-        self.timer = Timer.repeatActionWithBackoff(
+        self.timer = SRetoTimer.repeatActionWithBackoff(
             timerSettings: self.timerSettings,
             dispatchQueue: self.dispatchQueue,
             action: {
@@ -137,7 +137,7 @@ class StartStopHelper {
     * @param timerSettings The timer settings used to retry the start and stop actions
     * @param executor The executor to execute the start and stop action on.
     * */
-    init(startBlock: @escaping RetryableAction, stopBlock: @escaping RetryableAction, timerSettings: Timer.BackoffTimerSettings, dispatchQueue: DispatchQueue) {
+    init(startBlock: @escaping RetryableAction, stopBlock: @escaping RetryableAction, timerSettings: SRetoTimer.BackoffTimerSettings, dispatchQueue: DispatchQueue) {
         self.starter = RetryableActionExecutor(action: startBlock, timerSettings: timerSettings, dispatchQueue: dispatchQueue)
         self.stopper = RetryableActionExecutor(action: stopBlock, timerSettings: timerSettings, dispatchQueue: dispatchQueue)
     }

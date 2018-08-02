@@ -24,15 +24,20 @@ PODS:
 DEPENDENCIES:
   - sReto/AllModules (from `../../`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CocoaAsyncSocket
+    - SocketRocket
+
 EXTERNAL SOURCES:
   sReto:
-    :path: ../../
+    :path: "../../"
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
-  sReto: 3ed0b06de280de4a541ee45562d4e686911861f3
+  sReto: 567cc0fd34329a69ecb2dbc644a43a681b60bed7
 
 PODFILE CHECKSUM: c5c4bc6e19d8c59e02eefbcb72cc024c9e62e338
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.5.3

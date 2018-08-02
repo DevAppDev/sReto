@@ -24,13 +24,13 @@ import Foundation
 * A RepeatedExecutor executes an action repeatedly with a certain delay. On demand, the action can also be triggered immediately or after a short delay.
 * */
 class RepeatedExecutor {
-    let regularDelay: Timer.TimeInterval
-    let shortDelay: Timer.TimeInterval
+    let regularDelay: SRetoTimer.TimeInterval
+    let shortDelay: SRetoTimer.TimeInterval
     let dispatchQueue: DispatchQueue
     
     var action: (()->())? = nil
     var isStarted: Bool = false
-    weak var timer: Timer?
+    weak var timer: SRetoTimer?
     
     /**
     * Constructs a new RepeatableExecutor.
@@ -40,7 +40,7 @@ class RepeatedExecutor {
     * @param shortDelay The delay used when runActionInShortDelay is called.
     * @param executor The executor to execute the action with.
     * */
-    init(regularDelay: Timer.TimeInterval, shortDelay: Timer.TimeInterval, dispatchQueue: DispatchQueue) {
+    init(regularDelay: SRetoTimer.TimeInterval, shortDelay: SRetoTimer.TimeInterval, dispatchQueue: DispatchQueue) {
         self.regularDelay = regularDelay
         self.shortDelay = shortDelay
         self.dispatchQueue = dispatchQueue
@@ -81,7 +81,7 @@ class RepeatedExecutor {
     * */
     func runActionInShortDelay() {
         self.interrupt()
-        self.timer = Timer.delay(
+        self.timer = SRetoTimer.delay(
             self.shortDelay,
             dispatchQueue: self.dispatchQueue,
             action: {
@@ -102,7 +102,7 @@ class RepeatedExecutor {
             return
         }
         
-        self.timer = Timer.repeatAction(
+        self.timer = SRetoTimer.repeatAction(
             interval: self.regularDelay,
             dispatchQueue: self.dispatchQueue,
             action: {
