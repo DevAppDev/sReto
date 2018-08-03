@@ -98,7 +98,7 @@ Execute an action with user-specified delays (you figure out something to do wit
         }
     )
 */
-open class Timer {
+open class SRetoTimer {
     /**
     Represents a time interval in seconds
     */
@@ -106,7 +106,7 @@ open class Timer {
     /**
     An action executed by a Timer if it is repeated. A Timer object is passed to allow stopping of the timer, as well as the number of executions.
     */
-    public typealias TimerAction = (_ timer: Timer, _ executionCount: Int) -> ()
+    public typealias TimerAction = (_ timer: SRetoTimer, _ executionCount: Int) -> ()
     /**
     An function that returns a time interval.
     */
@@ -126,9 +126,9 @@ open class Timer {
     open class func delay(
         _ delay: TimeInterval,
         dispatchQueue: DispatchQueue = DispatchQueue.main,
-        action: @escaping () -> ()) -> Timer {
+        action: @escaping () -> ()) -> SRetoTimer {
             
-        return Timer(
+        return SRetoTimer(
             delayBlock: { _ in delay },
             dispatchQueue: dispatchQueue,
             maximumExecutions: 1,
@@ -160,9 +160,9 @@ open class Timer {
         interval: TimeInterval,
         dispatchQueue: DispatchQueue = DispatchQueue.main,
         maximumExecutionCount: Int? = nil,
-        action: @escaping TimerAction) -> Timer {
+        action: @escaping TimerAction) -> SRetoTimer {
             
-        return Timer(
+        return SRetoTimer(
             delayBlock: { _ in interval },
             dispatchQueue: dispatchQueue,
             maximumExecutions: maximumExecutionCount,
@@ -204,9 +204,9 @@ open class Timer {
         maximumDelay: TimeInterval? = nil,
         dispatchQueue: DispatchQueue = DispatchQueue.main,
         maximumExecutionCount: Int? = nil,
-        action: @escaping TimerAction) -> Timer {
+        action: @escaping TimerAction) -> SRetoTimer {
             
-        return Timer(
+        return SRetoTimer(
             delayBlock: {
                 executionCount in
                 let timeInterval = TimeInterval(initialDelay * pow(backOffFactor, Double(executionCount)))
@@ -224,7 +224,7 @@ open class Timer {
         timerSettings: BackoffTimerSettings,
         dispatchQueue: DispatchQueue = DispatchQueue.main,
         maximumExecutionCount: Int? = nil,
-        action: @escaping TimerAction) -> Timer {
+        action: @escaping TimerAction) -> SRetoTimer {
         
             return repeatActionWithBackoff(initialDelay: timerSettings.initialInterval, backOffFactor: timerSettings.backOffFactor, maximumDelay: timerSettings.maximumDelay, dispatchQueue: dispatchQueue, maximumExecutionCount: maximumExecutionCount, action: action)
     }
@@ -250,9 +250,9 @@ open class Timer {
         delayBlock: @escaping DelayBlock,
         dispatchQueue: DispatchQueue = DispatchQueue.main,
         maximumExecutionCount: Int? = nil,
-        action: @escaping TimerAction) -> Timer {
+        action: @escaping TimerAction) -> SRetoTimer {
             
-        return Timer(
+        return SRetoTimer(
             delayBlock: delayBlock,
             dispatchQueue: dispatchQueue,
             maximumExecutions: maximumExecutionCount,
@@ -268,7 +268,7 @@ open class Timer {
     fileprivate var currentExecutionCount: Int = 0
     fileprivate var isDone: Bool = false
     
-    fileprivate var selfRetain: Timer?
+    fileprivate var selfRetain: SRetoTimer?
     
     fileprivate init(delayBlock: @escaping DelayBlock, dispatchQueue: DispatchQueue, maximumExecutions: Int?, action: @escaping TimerAction) {
         self.delayBlock = delayBlock
