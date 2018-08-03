@@ -1,17 +1,15 @@
 Pod::Spec.new do |s|
   s.name               = 'sReto'
-  s.version            = '2.0.0'
+  s.branch             = 'dev'
   s.summary            = 'P2P Framework for realtime collaboration in Swift with independent modules for WLAN, Bluetooth and Remote support'
-  s.homepage           = 'https://github.com/ls1intum/sReto'
+  s.homepage           = 'https://github.com/DevAppDev/sReto'
   s.license            = 'MIT'
-  s.author             = { 'Chair for Applied Software Engineering' => 'ios@in.tum.de' }
-  s.social_media_url   = 'https://twitter.com/ls1intum'
 
   s.requires_arc          = true
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
 
-  s.source             = { :git => 'https://github.com/ls1intum/sReto.git', :tag => s.version }
+  s.source             = { :git => 'https://github.com/DevAppDev/sReto.git', :branch => s.branch }
 
   s.default_subspec    = 'WlanModule'
   
