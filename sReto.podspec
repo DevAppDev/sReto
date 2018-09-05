@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.subspec 'Bonjour' do |b|
   	b.source_files     = 'Source/sReto/Modules/Bonjour/**/*.swift'
   	b.dependency         'sReto/Core'
-  	b.dependency         'CocoaAsyncSocket', '7.6.2'
+  	b.dependency         'CocoaAsyncSocket', '7.6.3'
   end
   
   s.subspec 'WlanModule' do |wm|
